@@ -10,11 +10,12 @@ export const GET = async (req: Request) => {
         const name = searchParams.get('name')
         const validation = usernameValidation.safeParse(name)
         if (!validation.success) {
-            return Response.json({ success: false, message: "Invalid username" }, { status: 400 });
+            // console.log(validation.error.errors[0].message)
+            return Response.json({ success: false, message: validation.error.errors[0].message }, { status: 200 });
         }
         const existingUser = await User.findOne({ name,isVerified: true });
         if (existingUser) {
-            return Response.json({ success: false, message: "Username already exists" }, { status: 400 });
+            return Response.json({ success: false, message: "Username already exists" }, { status: 200 });
         }
         return Response.json({ success: true, message: "Username is available" }, { status: 200 });
     } catch (error) {

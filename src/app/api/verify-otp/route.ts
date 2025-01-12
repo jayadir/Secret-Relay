@@ -22,3 +22,4 @@ export const POST = async (req: Request) => {
         console.log(error);
         return Response.json({ success: false, message: "Failed to verify OTP" }, { status: 500 });
     }
+}
